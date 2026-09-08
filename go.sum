@@ -8,8 +8,8 @@ golang.org/x/image v0.45.0/go.mod h1:n62x/7RqlwXDvGsSU4u6IUTUf6KghUZ9Bt7cG/T9Fx4
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 webtyp.com/await v0.1.1 h1:FL8SEwiPH+Fnbrn+c2hxFp9mzO8r63PN73xBgxH64tI=
 webtyp.com/await v0.1.1/go.mod h1:BR7plUmeCOeOvQULgc+99NwSAgWeA+AHADzJsRyTHrg=
-webtyp.com/dom v0.13.10 h1:ezdPucWXutge5BGuDROuzmhTkkI+Zxx/ir/K+4ZTi9Y=
-webtyp.com/dom v0.13.10/go.mod h1:p7Vl/6A0VR3GU+NHR4Ggn0oTnRRBPUZ9+RziR5tDB4Q=
+webtyp.com/dom v0.13.11 h1:gAfgHSuDil00Oo9EY81YjM3u2Vp2NdujNznTY7j+F24=
+webtyp.com/dom v0.13.11/go.mod h1:p7Vl/6A0VR3GU+NHR4Ggn0oTnRRBPUZ9+RziR5tDB4Q=
 webtyp.com/fmt v1.0.0 h1:W0vMMGC6ezg1q2LarAEaVnNvZ26hVqzZdQQH1wcNogM=
 webtyp.com/fmt v1.0.0/go.mod h1:FmTxx713R45J21kbH5JOmKGaaCap3fJPA9Yl2n4Ch7U=
 webtyp.com/modfind v0.0.9 h1:3hOnLwVsXv/wqxJIuBecSSL4jra+KeLM4QSiYFahyfs=
