@@ -47,10 +47,10 @@ func TestDeriveEmitsTheFullSet(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Derive with SVG: %v", err)
 	}
-	if len(withSVG) != 5 {
-		t.Fatalf("with SVG: expected 5 files, got %d: %v", len(withSVG), names(withSVG))
+	if len(withSVG) != 6 {
+		t.Fatalf("with SVG: expected 6 files, got %d: %v", len(withSVG), names(withSVG))
 	}
-	expectOrder := []string{"icon-32.png", "icon-192.png", "apple-touch-icon.png", "favicon.ico", "favicon.svg"}
+	expectOrder := []string{"icon-32.png", "icon-192.png", "apple-touch-icon.png", "icon-512.png", "favicon.ico", "favicon.svg"}
 	for i, want := range expectOrder {
 		if withSVG[i].Name != want {
 			t.Errorf("with SVG: file %d name = %q, want %q", i, withSVG[i].Name, want)
@@ -61,10 +61,10 @@ func TestDeriveEmitsTheFullSet(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Derive without SVG: %v", err)
 	}
-	if len(withoutSVG) != 4 {
-		t.Fatalf("without SVG: expected 4 files, got %d: %v", len(withoutSVG), names(withoutSVG))
+	if len(withoutSVG) != 5 {
+		t.Fatalf("without SVG: expected 5 files, got %d: %v", len(withoutSVG), names(withoutSVG))
 	}
-	expectNoSVG := []string{"icon-32.png", "icon-192.png", "apple-touch-icon.png", "favicon.ico"}
+	expectNoSVG := []string{"icon-32.png", "icon-192.png", "apple-touch-icon.png", "icon-512.png", "favicon.ico"}
 	for i, want := range expectNoSVG {
 		if withoutSVG[i].Name != want {
 			t.Errorf("without SVG: file %d name = %q, want %q", i, withoutSVG[i].Name, want)
@@ -302,5 +302,33 @@ func TestIcoWrapsPNG(t *testing.T) {
 	// Check PNG signature
 	if !bytes.HasPrefix(pngData, []byte{0x89, 'P', 'N', 'G'}) {
 		t.Error("ICO payload does not start with PNG signature")
+	}
+}
+
+// The PWA install icon is emitted only from a source of at least 512, never upscaled, and is not
+// linked from <head> (Rel empty): webtyp.com/pwa lists it in the manifest.
+func TestDeriveIcon512OnlyFromLargeSource(t *testing.T) {
+	large, err := favicon.Derive(favicon.Source{Raster: rasterPNG(t, 512, 512)})
+	if err != nil {
+		t.Fatal(err)
+	}
+	f := findFile(large, "icon-512.png")
+	if f == nil {
+		t.Fatalf("512 source: icon-512.png missing: %v", names(large))
+	}
+	if f.Rel != "" || f.Sizes != "512x512" || f.Mediatype != "image/png" {
+		t.Errorf("icon-512.png Rel=%q Sizes=%q Mediatype=%q", f.Rel, f.Sizes, f.Mediatype)
+	}
+	cfg, err := png.DecodeConfig(bytes.NewReader(f.Content))
+	if err != nil || cfg.Width != 512 || cfg.Height != 512 {
+		t.Errorf("icon-512.png decodes as %dx%d, %v", cfg.Width, cfg.Height, err)
+	}
+
+	small, err := favicon.Derive(favicon.Source{Raster: rasterPNG(t, 256, 256)})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if findFile(small, "icon-512.png") != nil {
+		t.Error("256 source: icon-512.png emitted; it must never be upscaled")
 	}
 }

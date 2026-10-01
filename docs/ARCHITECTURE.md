@@ -20,7 +20,7 @@ The package is split into four parts:
 - **`browser/compress.go`**: Client-side `Compress` and `CompressToFit` utilizing browser `OffscreenCanvas`.
 - **`browser/js.go`**: Constant definitions for JS global/property names.
 - **`browser/errors.go`**: Sentinel errors like `ErrUnsupported`.
-- **`favicon/favicon.go`**: `Derive` — de un logo cuadrado al juego de iconos (`icon-32.png`, `icon-192.png`, `apple-touch-icon.png`, `favicon.ico`, `favicon.svg`).
+- **`favicon/favicon.go`**: `Derive` — de un logo cuadrado al juego de iconos (`icon-32.png`, `icon-192.png`, `apple-touch-icon.png`, `icon-512.png` (solo con un logo de 512 o más; no se enlaza en `<head>`, es el ícono de instalación de la PWA), `favicon.ico`, `favicon.svg`).
 - **`favicon/ico.go`**: Codificador ICO mínimo (22 bytes de cabecera + PNG de 32×32 embebido).
 - **`favicon/errors.go`**: `ErrNoRaster`, `ErrUndecodable`, `ErrNotSquare`, `ErrTooSmall` (valida y deriva, no sanea SVG).
 - **`min/extract.go`**: Uses the `go/ast` and `go/parser` packages to analyze Go source code. It extracts the `RenderImages` function from `image.go` files.

@@ -37,7 +37,7 @@ type File struct {
 	Type      string // valor del atributo type del <link> — vacío: sin atributo
 }
 
-// spec entries in the exact order required (32, 192, 180).
+// spec entries in the exact order required (32, 192, 180, 512).
 type iconSpec struct {
 	Name      string
 	Size      int
@@ -51,6 +51,10 @@ var pngSpecs = []iconSpec{
 	{Name: "icon-32.png", Size: 32, Mediatype: "image/png", Rel: "icon", Sizes: "32x32", Type: "image/png"},
 	{Name: "icon-192.png", Size: 192, Mediatype: "image/png", Rel: "icon", Sizes: "192x192", Type: "image/png"},
 	{Name: "apple-touch-icon.png", Size: 180, Mediatype: "image/png", Rel: "apple-touch-icon", Sizes: "180x180", Type: ""},
+	// Install icon of a PWA manifest (webtyp.com/pwa needs 192 and 512). Not linked from <head>,
+	// and only emitted when the source is at least 512: a PWA with a smaller logo fails in
+	// pwa.Generate with a message naming the missing size, instead of shipping an upscaled icon.
+	{Name: "icon-512.png", Size: 512, Mediatype: "image/png", Rel: "", Sizes: "512x512", Type: ""},
 }
 
 // Derive produce el juego completo a partir de la fuente.
