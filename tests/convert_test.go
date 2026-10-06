@@ -150,9 +150,7 @@ func TestConvertOutputDirCreated(t *testing.T) {
 		OutputDir: newOutputDir,
 		Quality:   82,
 	})
-	f := modfind.New()
-	f.Seed(env.ModuleDir, []modfind.Module{{Dir: env.ModuleDir, Path: "m"}})
-	env.Handler.SetFinder(f)
+	env.Handler.SetFinder(fakeModules([]modfind.Module{{Dir: env.ModuleDir, Path: "m"}}))
 
 	env.writeImageGoWithImages([]image.Asset{{Path: "test.jpg", Variants: image.VariantS}})
 

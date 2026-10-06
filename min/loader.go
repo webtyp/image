@@ -18,7 +18,15 @@ func (h *Handler) moduleDirs() ([]string, error) {
 		h.finder = modfind.New()
 	}
 	h.mu.Unlock()
-	return h.finder.Dirs(h.config.RootDir)
+	mods, err := h.finder.Discover(h.config.RootDir)
+	if err != nil {
+		return nil, err
+	}
+	dirs := make([]string, 0, len(mods))
+	for _, m := range mods {
+		dirs = append(dirs, m.Dir)
+	}
+	return dirs, nil
 }
 
 // LoadImages discovers modules via go list and processes their images.

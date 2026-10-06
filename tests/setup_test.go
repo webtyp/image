@@ -36,11 +36,9 @@ func newTestEnv(t *testing.T) *TestEnv {
 
 	handler := min.New(config)
 
-	f := modfind.New()
-	f.Seed(moduleDir, []modfind.Module{
+	handler.SetFinder(fakeModules([]modfind.Module{
 		{Dir: moduleDir, Path: "webtyp.com/image/testmodule"},
-	})
-	handler.SetFinder(f)
+	}))
 
 	return &TestEnv{
 		t:         t,
@@ -162,3 +160,8 @@ func createTestPNG(path string, width, height int, alpha bool) error {
 	defer f.Close()
 	return png.Encode(f, img)
 }
+
+// fakeModules is the test double for modfind.Discoverer: it returns fixed modules.
+type fakeModules []modfind.Module
+
+func (f fakeModules) Discover(string) ([]modfind.Module, error) { return f, nil }

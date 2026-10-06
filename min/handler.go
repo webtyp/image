@@ -20,7 +20,7 @@ type Handler struct {
 	mu     sync.Mutex
 	config *Config
 	log    func(messages ...any)
-	finder *modfind.Finder
+	finder modfind.Discoverer
 	assets []ParsedAsset
 }
 
@@ -41,7 +41,7 @@ func (h *Handler) SetLog(fn func(messages ...any)) {
 	h.log = fn
 }
 
-func (h *Handler) SetFinder(f *modfind.Finder) {
+func (h *Handler) SetFinder(f modfind.Discoverer) {
 	h.finder = f
 }
 
