@@ -8,7 +8,7 @@ require (
 	webtyp.com/await v0.1.2
 	webtyp.com/dom v0.13.20
 	webtyp.com/fmt v1.0.0
-	webtyp.com/modfind v0.0.9
+	webtyp.com/modfind v0.0.10
 )
 
 require golang.org/x/image v0.45.0
