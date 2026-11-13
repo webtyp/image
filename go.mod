@@ -7,7 +7,7 @@ require (
 	github.com/disintegration/imaging v1.6.2
 	webtyp.com/await v0.1.2
 	webtyp.com/dom v0.13.29
-	webtyp.com/fmt v1.0.0
+	webtyp.com/fmt v1.0.1
 	webtyp.com/modfind v0.0.10
 )
 
